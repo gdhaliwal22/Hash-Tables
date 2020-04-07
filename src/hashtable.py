@@ -1,21 +1,33 @@
 # '''
 # Linked List hash table key/value pair
 # '''
+
+
 class LinkedPair:
     def __init__(self, key, value):
         self.key = key
         self.value = value
         self.next = None
 
+    def set_next(self, new_next):
+        self.next_node = new_next
+
+    def __str__(self):
+        return self.key
+
+
 class HashTable:
     '''
     A hash table that with `capacity` buckets
     that accepts string keys
     '''
+
     def __init__(self, capacity):
         self.capacity = capacity  # Number of buckets in the hash table
         self.storage = [None] * capacity
 
+    def __str__(self):
+        return self.storage
 
     def _hash(self, key):
         '''
@@ -25,7 +37,6 @@ class HashTable:
         '''
         return hash(key)
 
-
     def _hash_djb2(self, key):
         '''
         Hash an arbitrary key using DJB2 hash
@@ -34,14 +45,12 @@ class HashTable:
         '''
         pass
 
-
     def _hash_mod(self, key):
         '''
         Take an arbitrary key and return a valid integer index
         within the storage capacity of the hash table.
         '''
         return self._hash(key) % self.capacity
-
 
     def insert(self, key, value):
         '''
@@ -54,9 +63,17 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        hash_to_index = self._hash_mod(key)
 
-
+        if self.storage[hash_to_index] is not None:
+            next_node = self.storage[hash_to_index]
+            while next_node.next is not None:
+                next_node = next_node.next
+            next_node = LinkedPair(key, value)
+        else:
+            self.storage[hash_to_index] = LinkedPair(key, value)
+            # print('STORAGE', self.storage[hash_to_index].value)
+        return
 
     def remove(self, key):
         '''
@@ -68,7 +85,6 @@ class HashTable:
         '''
         pass
 
-
     def retrieve(self, key):
         '''
         Retrieve the value stored with the given key.
@@ -79,7 +95,6 @@ class HashTable:
         '''
         pass
 
-
     def resize(self):
         '''
         Doubles the capacity of the hash table and
@@ -88,7 +103,6 @@ class HashTable:
         Fill this in.
         '''
         pass
-
 
 
 if __name__ == "__main__":
