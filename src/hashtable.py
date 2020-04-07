@@ -1,6 +1,6 @@
-'''
-Linked List hash table key/value pair
-'''
+# '''
+# Linked List hash table key/value pair
+# '''
 
 
 class LinkedPair:
@@ -32,6 +32,7 @@ class HashTable:
     def _hash(self, key):
         '''
         Hash an arbitrary key and return an integer.
+
         You may replace the Python hash with DJB2 as a stretch goal.
         '''
         return hash(key)
@@ -39,6 +40,7 @@ class HashTable:
     def _hash_djb2(self, key):
         '''
         Hash an arbitrary key using DJB2 hash
+
         OPTIONAL STRETCH: Research and implement DJB2
         '''
         pass
@@ -53,7 +55,12 @@ class HashTable:
     def insert(self, key, value):
         '''
         Store the value with the given key.
-        Hash collisions should be handled with Linked List Chaining.
+
+        # Part 1: Hash collisions should be handled with an error warning. (Think about and
+        # investigate the impact this will have on the tests)
+
+        # Part 2: Change this so that hash collisions are handled with Linked List Chaining.
+
         Fill this in.
         '''
         hash_to_index = self._hash_mod(key)
@@ -71,53 +78,31 @@ class HashTable:
     def remove(self, key):
         '''
         Remove the value stored with the given key.
+
         Print a warning if the key is not found.
+
         Fill this in.
         '''
-        hash_to_index = self._hash_mod(key)
-
-        if self.storage[hash_to_index] is not None:
-            if self.storage[hash_to_index].key == key:
-                self.storage[hash_to_index].key = None
-            else:
-                print(f'Warning: Collision has occurred at {hash_to_index}')
-        else:
-            print(f'Warning: key ({ key }) not found.')
+        pass
 
     def retrieve(self, key):
         '''
         Retrieve the value stored with the given key.
+
         Returns None if the key is not found.
+
         Fill this in.
         '''
-        hash_to_index = self._hash_mod(key)
-
-        if self.storage[hash_to_index] is not None:
-            if self.storage[hash_to_index].key == key:
-                return self.storage[hash_to_index].value
-            else:
-                next_node = self.storage[hash_to_index].next
-                while next_node is not None:
-                    if next_node.key == key:
-                        return next_node.value
-                    else:
-                        next_node = next_node.next
-                        # print(f'Warning: Collision has occurred at {hash_to_index}')
-        else:
-            return None
+        pass
 
     def resize(self):
         '''
         Doubles the capacity of the hash table and
         rehash all key/value pairs.
+
         Fill this in.
         '''
-        old_storage = self.storage
-        self.capacity *= 2
-        self.storage = [None] * self.capacity
-
-        for item in old_storage:
-            self.insert(item.key, item.value)
+        pass
 
 
 if __name__ == "__main__":
@@ -146,4 +131,4 @@ if __name__ == "__main__":
     print(ht.retrieve("line_2"))
     print(ht.retrieve("line_3"))
 
-    # print("")
+    print("")
